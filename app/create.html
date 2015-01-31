@@ -18,10 +18,27 @@
   <body>
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
-        <h1>MyPoll.me</h1>
+        <h1>Create Questions</h1>
         <ul>
-          <form action="create.html">
-            <input type="submit" value="Start">
+          <form id ="textform">
+              <div id="quest-1">
+                1.<input type="text" value="Write your question">
+                <div id="quest-1-ans-1" style="padding-left: 5em;">
+                  1. <input type="text" value="Write an answer">
+                </div>
+              </div>
+          </form>
+          <form action="javascript:addQuestion()">
+            <input type="submit" value="Add Question">
+          </form>
+          <form action="javascript:addAnswer()">
+            <input type="submit" value="Add Answer">
+          </form>
+          <form action="links.html">
+            <input type="submit" value="Done">
+          </form>
+          <form action="javascript:showQuestIDs()">
+            <input type="submit" value="Debug">
           </form>
         </ul>
       </div>
@@ -63,5 +80,35 @@
         <script src="bower_components/bootstrap/js/collapse.js"></script>
         <script src="bower_components/bootstrap/js/tab.js"></script>
         <!-- endbuild -->
+
+        <!-- Add Questions -->
+        <script>
+        function addQuestion(){
+          var children = document.getElementById("textform").childNodes.length;
+          var questionContainer = document.createElement('DIV');
+          children-= 1;
+
+          questionContainer.id = 'quest-' + children;
+          var num = document.createTextNode(children.toString() + ".");
+          questionContainer.appendChild(num);
+
+          var textBox = document.createElement('input');
+          textBox.type = 'text';
+          textBox.value = "Write your question"
+          questionContainer.appendChild(textBox);
+
+          document.getElementById("textform").appendChild(questionContainer);
+        };
+
+        function addAnswer(){
+          
+        };
+
+        function showQuestIDs(){
+          for(var i = 0; i < document.getElementById("textform").childNodes.length;i++) {
+            console.log(document.getElementById("textform").childNodes[i].id);
+          }
+        };
+        </script>
 </body>
 </html>
