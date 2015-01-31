@@ -12,7 +12,6 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   // show elapsed time at the end
   require('time-grunt')(grunt);
-  grunt.loadNpmTasks('grunt-gh-pages');
 
   // configurable paths
   var yeomanConfig = {
@@ -21,12 +20,6 @@ module.exports = function (grunt) {
   };
 
   grunt.initConfig({
-    'gh-pages': {
-      options: {
-        base: 'dist'
-      },
-      src: ['**']
-    },
     yeoman: yeomanConfig,
     watch: {
       coffee: {
