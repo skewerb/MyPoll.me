@@ -27,9 +27,12 @@
           <div id="answers">
           </div>
         </div>
-        <div id="answered">
+        <div id="answered" style="display: none;">
           <h3>You answered.</h3>
           <h4>Waiting for next question...</h4>
+        </div>
+        <div id="sessionEnded" style="display: none;">
+          <h1>The session has ended</h1>
         </div>
       </div>
     </div>
@@ -76,7 +79,12 @@
 
         <script>
         $(function(){
-          $("#answered").hide();
+          function hideAll() {
+            $("#questionDisplay").hide();
+            $("#waiting").hide();
+            $("#answered").hide();
+            $("#sessionEnded").hide();
+          };
           function getParameterByName(name) {
               name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
               var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -107,9 +115,14 @@
           });
 
           socket.on('session-ended', function(){
-            console.log("session ended");
-
+            hideAll();
+            $("#sessionEnded").show();
           });
+
+          socket.on('disconnect', function(){
+            $('#jumbotron').append("You've been disconnected<br>");
+          });
+
           function answerSubmitted() {
             $("#questionDisplay").hide();
             $("#answered").show();

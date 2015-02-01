@@ -18,10 +18,15 @@
   <body>
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
-        <h1>Presentor</h1>
-        <div id="questions">
+        <div id="main">
+          <h1>Presentor</h1>
+          <div id="questions">
+          </div>
+          <button id="endSession">End Session</button>
         </div>
-        <button id="endSession">End Session</button>
+        <div id="sessionEnded" style="display: none;">
+          <h1>Your session has ended</h1>
+        </div>
       </div>
     </div>
 
@@ -120,11 +125,16 @@
 
           socket.on('session-ended', function(){
             console.log("session ended");
-
+            $("#main").hide();
+            $("sessionEnded").show();
           });
 
           socket.on('connections updated', function(numClients){
             console.log("number of clients: " + numClients);
+          });
+
+          $('#endSession').click(function(){
+            socket.emit('end-session', roomName);
           });
         });
         </script>

@@ -19,14 +19,16 @@
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
         <div id="waiting">
-        <h1>Display</h1>
-        <h3>Waiting for results to display...</h3>
-      </div>
-      <div id="questionDisplay" style="display: none;">
-      <h1 id="question">What is your favorite color?</h1>
-      <div id="results">
-      </div>
-    </div>
+          <h1>Display</h1>
+          <h3>Waiting for results to display...</h3>
+        </div>
+        <div id="questionDisplay" style="display: none;">
+          <h1 id="question">What is your favorite color?</h1>
+          <div id="results"></div>
+        </div>
+        <div id="sessionEnded" style="display: none;">
+          <h1>Nothing more to display</h1>
+        </div>
       </div>
     </div>
 
@@ -113,7 +115,9 @@
 
           socket.on('session-ended', function(){
             console.log("session ended");
-
+            $('#waiting').hide();
+            $('#questionDisplay').hide();
+            $('#sessionEnded').show();
           });
 
           socket.on('connections updated', function(numClients){
