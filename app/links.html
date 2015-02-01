@@ -18,18 +18,14 @@
   <body>
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
-        <h1>Links</h1>
-        <ul>
-          <h2>Presentor</h2>
-          <input id="presentorLink" type="text">
-          <h2>Audience</h2>
-          <input id="audienceLink" type="text">
-          <h2>Display</h2>
-          <a id="displayLink"></a>
-          <form action="index.html">
-            <input type="submit" value="Home">
-          </form>
-        </ul>
+        <h2>Your Hivepoll has been created</h2>
+        <h3>Presentor</h3>
+        <a id="presentorLink"></a>
+        <h3>Audience</h3>
+        <a id="audienceLink"></a>
+        <h3>Display</h3>
+        <a id="displayLink"></a>
+        <h4>(Links are case sensitive)</h>
       </div>
     </div>
 
@@ -82,8 +78,10 @@
           var host = window.location.host;
           var pollId = getParameterByName("pollId");
           var presentorId = getParameterByName("presentorId");
-          $("#presentorLink").val(host + "/" + presentorId);
-          $("#audienceLink").val(host + "/" + pollId);
+          $("#presentorLink").text(host + "/" + presentorId);
+          $("#presentorLink").attr("href", window.location.origin + "/" + presentorId);
+          $("#audienceLink").text(host + "/" + pollId);
+          $("#audienceLink").attr("href", window.location.origin + "/" + pollId);
           $("#displayLink").text(host + "/" + pollId + "/disp");
           $("#displayLink").attr("href", window.location.origin + "/" + pollId + "/disp");
         });
