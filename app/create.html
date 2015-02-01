@@ -159,7 +159,7 @@
 
           $.post( '/poll', newPoll, function( data ) {
             console.log(data);
-            window.location.href = "links.html?pollId=" + data.id;
+            window.location.href = "links.html?pollId=" + data.pollId + "&presentorId=" + data.presentorId;
           } );
 
         };

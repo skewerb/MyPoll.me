@@ -79,10 +79,12 @@
                   results = regex.exec(location.search);
               return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
           };
+          var host = window.location.host;
           var pollId = getParameterByName("pollId");
-          $("#presentorLink").val("mypoll.me/" + pollId);
-          $("#audienceLink").val("mypoll.me/" + pollId);
-          $("#displayLink").val("mypoll.me/" + pollId);
+          var presentorId = getParameterByName("presentorId");
+          $("#presentorLink").val(host + "/" + presentorId);
+          $("#audienceLink").val(host + "/" + pollId);
+          $("#displayLink").val(host + "/" + pollId + "/disp");
         });
         </script>
 </body>
