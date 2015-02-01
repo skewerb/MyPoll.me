@@ -22,19 +22,20 @@
         <ul>
           <form id ="textform">
               <div id="quest-1">
-                1.<input type="text" value="Write your question">
-                <div id="quest-1-ans-1" style="padding-left: 5em;">
+                1.<input class="question" type="text" value="Write your question">
+                <!-- <div id="quest-1-ans-1" style="padding-left: 5em;">
                   1. <input type="text" value="Write an answer">
-                </div>
+                </div> -->
+                <!-- <div id="Answers">
+                </div> -->
+                  <!-- <input type="button" value="Add Answer" onclick="addAnswer()"> -->
               </div>
           </form>
           <form action="javascript:addQuestion()">
             <input type="submit" value="Add Question">
           </form>
-          <form action="javascript:addAnswer()">
-            <input type="submit" value="Add Answer">
-          </form>
-          <form action="links.html">
+
+          <form action="javascript:doneButtonClicked()">
             <input type="submit" value="Done">
           </form>
           <form action="javascript:showQuestIDs()">
@@ -83,25 +84,54 @@
 
         <!-- Add Questions -->
         <script>
+        var questCounter = 1;
+        var answerCounter = 0;
         function addQuestion(){
           var children = document.getElementById("textform").childNodes.length;
           var questionContainer = document.createElement('DIV');
           children-= 1;
-
           questionContainer.id = 'quest-' + children;
+
           var num = document.createTextNode(children.toString() + ".");
           questionContainer.appendChild(num);
 
           var textBox = document.createElement('input');
+          textBox.className = 'question';
           textBox.type = 'text';
           textBox.value = "Write your question"
           questionContainer.appendChild(textBox);
 
+          var addButton = document.createElement('input');
+          addButton.type = 'button';
+          addButton.value = "Add";
+          addButton.onclick = addAnswer;
+          questionContainer.appendChild(addButton);
+
           document.getElementById("textform").appendChild(questionContainer);
+          questCounter++;
+          console.log("Questions: " + questCounter.toString());
         };
 
         function addAnswer(){
-          
+          console.log(this);
+          var parentNode = this.parentNode.id;
+          var answerContainer = document.createElement('DIV');
+          answerContainer.id = parentNode.toString() + "-ans-" + (document.getElementById(parentNode).childNodes.length-6).toString();
+          answerContainer.style = "padding-left: 5em;"
+          console.log(answerContainer.id);
+
+          var num = document.createTextNode((document.getElementById(parentNode).childNodes.length-2).toString() + ".");
+          answerContainer.appendChild(num);
+
+          var textBox = document.createElement('input');
+          textBox.className = 'answer';
+          textBox.type = 'text';
+          textBox.value = "Write an answer";
+          answerContainer.appendChild(textBox);
+
+          document.getElementById(parentNode).appendChild(answerContainer);
+          answerCounter++;
+          console.log("Answers: " + answerCounter.toString());
         };
 
         function showQuestIDs(){
@@ -109,6 +139,47 @@
             console.log(document.getElementById("textform").childNodes[i].id);
           }
         };
+
+        function doneButtonClicked(){
+          var newPoll = {};
+          newPoll.title = "aoeu";
+          newPoll.questions = [];
+          $(".question").each(function(index,ele){
+            var question = {};
+            question.question = $(ele).val();
+            question.possibleAnswers = [];
+            $(ele).find(".answer").each(function(ansIndex,ansEle){
+              var answer = $(ansEle).val();
+              question.possibleAnswers.push(answer);
+            });
+            console.log(newPoll);
+            newPoll.questions.push(question);
+          });
+          console.log(newPoll);
+        };
+
+        var addButton = document.createElement('input');
+        addButton.className = 'answer';
+        addButton.type = 'button';
+        addButton.value = "Add";
+        addButton.onclick = addAnswer;
+        document.getElementById("quest-1").appendChild(addButton);
+        // addAnswer.apply(document.getElementById("quest-1"));
+
+        // var newPoll = {};
+        // newPoll = "aoeu";
+        // newPoll.questions = [];
+        //
+        // for(var i = 0;i<questCounter;i++) {
+        //     var question = {};
+        //     question.question = "aoeu";
+        //     question.possibleAnswers = [];
+        // for(var j = 0;j<length;j++) {
+        //     var answer = {};
+        //     question.possibleAnswers.push(answer);
+        //   }
+        //     newPoll.questions.push(question);
+        //   }
         </script>
 </body>
 </html>
