@@ -148,18 +148,23 @@
             var question = {};
             question.question = $(ele).val();
             question.possibleAnswers = [];
-            $(ele).find(".answer").each(function(ansIndex,ansEle){
+            $(ele).parent().find(".answer").each(function(ansIndex,ansEle){
               var answer = $(ansEle).val();
+              console.log('answer: ' + answer);
               question.possibleAnswers.push(answer);
             });
-            console.log(newPoll);
             newPoll.questions.push(question);
           });
           console.log(newPoll);
+
+          $.post( '/poll', newPoll, function( data ) {
+            console.log(data);
+          } );
+
         };
 
         var addButton = document.createElement('input');
-        addButton.className = 'answer';
+        //addButton.className = 'answer';
         addButton.type = 'button';
         addButton.value = "Add";
         addButton.onclick = addAnswer;
