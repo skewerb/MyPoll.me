@@ -22,7 +22,7 @@
         <ul>
           <form id ="textform">
               <div id="quest-1">
-                1.<input class="question" type="text" value="Write your question">
+                1.<input class="question" type="text" placeholder="Write your question">
                 <!-- <div id="quest-1-ans-1" style="padding-left: 5em;">
                   1. <input type="text" value="Write an answer">
                 </div> -->
@@ -98,7 +98,7 @@
           var textBox = document.createElement('input');
           textBox.className = 'question';
           textBox.type = 'text';
-          textBox.value = "Write your question"
+          textBox.placeholder = "Write your question"
           questionContainer.appendChild(textBox);
 
           var addButton = document.createElement('input');
@@ -126,7 +126,7 @@
           var textBox = document.createElement('input');
           textBox.className = 'answer';
           textBox.type = 'text';
-          textBox.value = "Write an answer";
+          textBox.placeholder = "Write an answer";
           answerContainer.appendChild(textBox);
 
           document.getElementById(parentNode).appendChild(answerContainer);
