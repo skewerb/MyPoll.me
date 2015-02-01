@@ -67,24 +67,6 @@
 
         <script>
         $(function(){
-          //Get questions from api
-          //Add questions to screen
-          var question = {
-            'question': 'What is your favorite color?',
-            'possibleAnswers': [
-              'Red',
-              'Blue',
-              'Green'
-            ]
-          };
-          var questions = [question];
-          questions.forEach(function(value){
-            var button = $("<button>" + value.question +"</button>").click(function(){
-              var roomName = getParameterByName("pollId");
-              socket.emit('display-question', roomName, value);
-              });
-            $("#questions").append(button);
-          });
           function getParameterByName(name) {
               name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
               var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -92,6 +74,20 @@
               return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
           };
           var roomName = getParameterByName("pollId");
+          //Get questions from api
+          $.get("/poll/" + roomName,function(poll){
+            //Add questions to screen
+            console.log(questions);
+            poll.questions.forEach(function(value){
+              var button = $("<button>" + value.question +"</button>").click(function(){
+                var roomName = getParameterByName("pollId");
+                socket.emit('display-question', roomName, value);
+                });
+              $("#questions").append(button);
+            });
+
+          });
+
           var socket = io('');
           socket.emit('join-room', roomName);
 

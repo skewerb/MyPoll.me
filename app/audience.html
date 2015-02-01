@@ -27,6 +27,10 @@
           <div id="answers">
           </div>
         </div>
+        <div id="answered">
+          <h3>You answered.</h3>
+          <h4>Waiting for next question...</h4>
+        </div>
       </div>
     </div>
 
@@ -72,6 +76,7 @@
 
         <script>
         $(function(){
+          $("#answered").hide();
           function getParameterByName(name) {
               name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
               var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -83,17 +88,20 @@
           socket.emit('join-room', roomName);
 
           socket.on('question-loaded', function(question){
-            $("#question").val(question.question);
+            console.log(question.question);
+            $("#question").text(question.question);
             $("#answers").empty();
             question.possibleAnswers.forEach(function(value){
 
               var button = $("<button>" + value +"</button>").click(function(){
                 var roomName = getParameterByName("pollId");
                 socket.emit('answer-question', roomName, value);
+                answerSubmitted();
               });
               $("#answers").append(button);
             });
             $("#waiting").hide();
+            $("#answered").hide();
             $("#questionDisplay").show();
             console.log(question);
           });
@@ -102,7 +110,10 @@
             console.log("session ended");
 
           });
-
+          function answerSubmitted() {
+            $("#questionDisplay").hide();
+            $("#answered").show();
+          };
         });
         </script>
 </body>

@@ -20,14 +20,10 @@
       <div class="jumbotron" style="text-align: center;">
         <div id="waiting">
         <h1>Display</h1>
-        <ul>
-          <form action="create.html">
-            <input type="submit" value="Start">
-          </form>
-        </ul>
+        <h3>Waiting for results to display...</h3>
       </div>
       <div id="questionDisplay" style="display: none;">
-      <h1>What is your favorite color?</h1>
+      <h1 id="question">What is your favorite color?</h1>
       <div id="results">
       </div>
     </div>
@@ -98,12 +94,13 @@
 
           socket.on('question-loaded', function(question){
             answers = {};
-            $("#waiting").hide();
-            $("#questionDisplay").show();
             question.possibleAnswers.forEach(function(value){
               answers[value] = 0;
             });
+            $("#question").text(question.question);
             refreshAnswers();
+            $("#waiting").hide();
+            $("#questionDisplay").show();
             console.log(question);
           });
 
