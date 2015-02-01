@@ -18,14 +18,14 @@
   <body>
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
-        <h1>Go to Links</h1>
+        <h1>Links</h1>
         <ul>
           <h2>Presentor</h2>
-          <input id="presentorLink" type="text" value="mypoll.me/hiufe">
+          <input id="presentorLink" type="text">
           <h2>Audience</h2>
-          <input id="audienceLink" type="text" value="mypoll.me/kwere">
+          <input id="audienceLink" type="text">
           <h2>Display</h2>
-          <input id="displayLink" type="text" value="mypoll.me/ywehwer">
+          <a id="displayLink"></a>
           <form action="index.html">
             <input type="submit" value="Home">
           </form>
@@ -84,7 +84,8 @@
           var presentorId = getParameterByName("presentorId");
           $("#presentorLink").val(host + "/" + presentorId);
           $("#audienceLink").val(host + "/" + pollId);
-          $("#displayLink").val(host + "/" + pollId + "/disp");
+          $("#displayLink").text(host + "/" + pollId + "/disp");
+          $("#displayLink").attr("href", window.location.origin + "/" + pollId + "/disp");
         });
         </script>
 </body>
