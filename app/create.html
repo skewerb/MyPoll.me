@@ -159,6 +159,7 @@
 
           $.post( '/poll', newPoll, function( data ) {
             console.log(data);
+            window.location.href = "links.html?pollId=" + data.id;
           } );
 
         };

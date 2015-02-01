@@ -20,6 +20,12 @@
       <div class="jumbotron" style="text-align: center;">
         <h1>Go to Links</h1>
         <ul>
+          <h2>Presentor</h2>
+          <input id="presentorLink" type="text" value="mypoll.me/hiufe">
+          <h2>Audience</h2>
+          <input id="audienceLink" type="text" value="mypoll.me/kwere">
+          <h2>Display</h2>
+          <input id="displayLink" type="text" value="mypoll.me/ywehwer">
           <form action="index.html">
             <input type="submit" value="Home">
           </form>
@@ -63,5 +69,21 @@
         <script src="bower_components/bootstrap/js/collapse.js"></script>
         <script src="bower_components/bootstrap/js/tab.js"></script>
         <!-- endbuild -->
+
+        <script>
+
+        $(function(){
+          function getParameterByName(name) {
+              name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+              var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                  results = regex.exec(location.search);
+              return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+          };
+          var pollId = getParameterByName("pollId");
+          $("#presentorLink").val("mypoll.me/" + pollId);
+          $("#audienceLink").val("mypoll.me/" + pollId);
+          $("#displayLink").val("mypoll.me/" + pollId);
+        });
+        </script>
 </body>
 </html>
