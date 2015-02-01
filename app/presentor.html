@@ -126,7 +126,7 @@
           socket.on('session-ended', function(){
             console.log("session ended");
             $("#main").hide();
-            $("sessionEnded").show();
+            $("#sessionEnded").show();
           });
 
           socket.on('connections updated', function(numClients){
