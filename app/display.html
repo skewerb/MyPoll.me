@@ -19,8 +19,9 @@
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
         <div id="waiting">
-          <h1>Display</h1>
-          <h3>Waiting for results to display...</h3>
+          <h1>Dashboard</h1>
+          <div id="connectInfo"></div>
+          <h3>Waiting presenter to start...</h3>
         </div>
         <div id="questionDisplay" style="display: none;">
           <h1 id="question">What is your favorite color?</h1>
@@ -123,6 +124,9 @@
           socket.on('connections updated', function(numClients){
             console.log("number of clients: " + numClients);
           });
+
+          $('#connectInfo').append("<a href='"+window.location.origin + "/" + roomName +"'>" + window.location.host + "/" + roomName + "</a><br>");
+          $('#connectInfo').append("<img style='max-width:100%;height:auto;' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+ window.location.origin +"/" + roomName + "' alt='Connect to Hivepoll' >");
         });
         </script>
 </body>
