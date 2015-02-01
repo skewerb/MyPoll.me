@@ -18,12 +18,19 @@
   <body>
     <div class="container">
       <div class="jumbotron" style="text-align: center;">
+        <div id="waiting">
         <h1>Display</h1>
         <ul>
           <form action="create.html">
             <input type="submit" value="Start">
           </form>
         </ul>
+      </div>
+      <div id="questionDisplay" style="display: none;">
+      <h1>What is your favorite color?</h1>
+      <div id="results">
+      </div>
+    </div>
       </div>
     </div>
 
@@ -63,5 +70,59 @@
         <script src="bower_components/bootstrap/js/collapse.js"></script>
         <script src="bower_components/bootstrap/js/tab.js"></script>
         <!-- endbuild -->
+
+        <!-- Manual -->
+        <script src="bower_components/socket.io-client/socket.io.js"></script>
+
+        <script>
+        var answers;
+        $(function(){
+          function getParameterByName(name) {
+              name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+              var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                  results = regex.exec(location.search);
+              return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+          };
+          var roomName = getParameterByName("pollId");
+          var socket = io('');
+          socket.emit('join-room', roomName);
+
+          function refreshAnswers() {
+            $("#results").empty();
+            var possibleAnswers = Object.keys(answers);
+            possibleAnswers.forEach(function(key){
+              $("#results").append(key + ": " + answers[key] + "<br>" );
+            });
+
+          };
+
+          socket.on('question-loaded', function(question){
+            answers = {};
+            $("#waiting").hide();
+            $("#questionDisplay").show();
+            question.possibleAnswers.forEach(function(value){
+              answers[value] = 0;
+            });
+            refreshAnswers();
+            console.log(question);
+          });
+
+          socket.on('answer', function(answer){
+            answers[answer]++;
+            refreshAnswers();
+            console.log(answer);
+
+          });
+
+          socket.on('session-ended', function(){
+            console.log("session ended");
+
+          });
+
+          socket.on('connections updated', function(numClients){
+            console.log("number of clients: " + numClients);
+          });
+        });
+        </script>
 </body>
 </html>
